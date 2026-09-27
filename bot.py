@@ -30,6 +30,11 @@ async def start_handler(message: Message) -> None:
 
 @dp.message()
 async def echo_handler(message: Message) -> None:
+    username = message.from_user.username if message.from_user and message.from_user.username else "Unknown"
+    text = message.text or "[media]"
+
+    print(f"[BOT STATUS] New message from @{username}: {text}")
+
     if message.text is not None:
         await message.answer(message.text)
     elif message.sticker is not None:
@@ -39,6 +44,7 @@ async def echo_handler(message: Message) -> None:
 
 
 async def main() -> None:
+    print("[BOT STATUS] Bot is running and polling for messages...")
     await dp.start_polling(bot)
 
 
